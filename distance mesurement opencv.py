@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 import time
 from scipy.spatial import distance as dist
-
 Tsize = 320
 prob_tresh = 0.5
 nms_threshold = 0.2
-
+color = (0,255,0)
+MIN_DISTANCE = 200
 ModelConfigFile = "yolov3.cfg"
 ModelWeightFile = "yolov3.weights"
 model = cv2.dnn.readNetFromDarknet(ModelConfigFile,ModelWeightFile)
@@ -15,8 +15,6 @@ model.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 classfile= "coco.names"
 with open(classfile,'r') as f:
     classnames = f.read().rsplit('\n')
-color = (0,255,0)
-MIN_DISTANCE = 500
 def findbox(outputs,img,cent):
     global color,MIN_DISTANCE
     hT, wT, cT = img.shape
